@@ -1,0 +1,32 @@
+name: Toolkit smoke test
+
+on:
+  pull_request:
+    paths:
+      - 'packages/toolkit/**'
+      - 'packages/cli/**'
+      - 'packages/mcp/**'
+      - 'packages/core/**'
+      - 'spec/corpus/file-mode.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.nvmrc'
+      - '.github/workflows/toolkit-smoke.yml'
+      - '.github/actions/npm-setup/**'
+  workflow_dispatch:
+
+concurrency:
+  group: toolkit-smoke-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/npm-setup
+      - run: npm run build:toolkit
+      - run: npm run test:smoke -w @markdone/toolkit

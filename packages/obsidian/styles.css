@@ -1,0 +1,217 @@
+/* Markdone — token chips, cue lines, and the sidebar view.
+   Built on Obsidian's own CSS variables (never hard-coded colors) so this
+   adapts to light/dark and to whatever theme the vault is using. */
+
+/* --- Token chips (Live Preview + Reading view) --- */
+
+.markdone-token {
+  border-radius: 4px;
+  padding: 0 0.3em;
+  font-size: 0.85em;
+  font-family: var(--font-monospace);
+  white-space: nowrap;
+}
+
+.markdone-token--due {
+  color: var(--color-red);
+  background-color: color-mix(in oklch, var(--color-red) 15%, transparent);
+}
+
+.markdone-token--defer {
+  color: var(--text-muted);
+  background-color: var(--background-modifier-border);
+}
+
+.markdone-token--context {
+  color: var(--color-blue);
+  background-color: color-mix(in oklch, var(--color-blue) 15%, transparent);
+}
+
+.markdone-token--value {
+  color: var(--color-green);
+  background-color: color-mix(in oklch, var(--color-green) 15%, transparent);
+}
+
+.markdone-token--complexity {
+  color: var(--color-purple);
+  background-color: color-mix(in oklch, var(--color-purple) 15%, transparent);
+}
+
+.markdone-token--effort {
+  color: var(--color-cyan);
+  background-color: color-mix(in oklch, var(--color-cyan) 15%, transparent);
+}
+
+.markdone-token--actual {
+  color: var(--text-muted);
+  background-color: var(--background-secondary);
+}
+
+/* #owner/ and #waiting/ are already rendered as native Obsidian tag anchors
+   — this only adds an accent, never replacing the tag's own styling or its
+   click-to-search behavior. */
+.markdone-token--owner {
+  border-bottom: 2px solid var(--color-purple);
+}
+
+.markdone-token--waiting {
+  border-bottom: 2px solid var(--color-orange);
+}
+
+/* --- Overdue / negative-slack cue --- */
+
+.markdone-line--overdue {
+  border-left: 3px solid var(--color-red);
+  padding-left: 0.5em;
+}
+
+.markdone-line--negative-slack {
+  border-left: 3px solid var(--color-orange);
+  padding-left: 0.5em;
+}
+
+/* Reading view applies the cue classes to the <li> itself. */
+li.task-list-item.markdone-line--overdue,
+li.task-list-item.markdone-line--negative-slack {
+  list-style: none;
+}
+
+/* --- Task state (Reading view, marked notes) ---
+   Each task item carries data-markdone-status (open|done|cancelled),
+   data-markdone-column, data-markdone-waiting, data-markdone-deferred and
+   data-markdone-context, plus the classes below. Everything uses Obsidian's
+   own variables so themes and CSS snippets can override any of it, e.g.
+     li[data-markdone-context~="phone"] { ... } */
+
+li.markdone-task.markdone-line--done {
+  color: var(--text-faint);
+}
+
+li.markdone-task.markdone-line--cancelled {
+  color: var(--text-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-faint);
+}
+
+li.markdone-task.markdone-line--waiting {
+  border-left: 3px solid var(--color-orange);
+  padding-left: 0.5em;
+}
+
+li.markdone-task.markdone-line--deferred {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.75;
+}
+
+/* A cancelled task's checkbox does nothing when clicked. */
+li.markdone-task.markdone-line--cancelled > input.task-list-item-checkbox {
+  cursor: not-allowed;
+}
+
+/* --- Kanban notes: column heading counts and drag-and-drop --- */
+
+.markdone-column-count {
+  margin-left: 0.6em;
+  padding: 0 0.5em;
+  border-radius: var(--radius-s);
+  background-color: var(--background-modifier-border);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--font-normal);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+li.markdone-task[draggable='true'] {
+  cursor: grab;
+}
+
+li.markdone-task[draggable='true']:active {
+  cursor: grabbing;
+}
+
+/* --- The Markdone view (sidebar) --- */
+
+.markdone-view {
+  padding: 0.5em;
+}
+
+.markdone-view-header {
+  margin-bottom: 0.75em;
+}
+
+.markdone-stalled-notice {
+  color: var(--color-orange);
+  font-size: var(--font-ui-smaller);
+  margin: 0 0 0.5em 0;
+}
+
+.markdone-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.markdone-group {
+  margin-bottom: 1em;
+}
+
+.markdone-group h4 {
+  margin: 0 0 0.25em 0;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  text-transform: uppercase;
+}
+
+.markdone-group-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.markdone-task-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  padding: 0.15em 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.markdone-task-checkbox {
+  margin: 0;
+}
+
+.markdone-task-text {
+  flex: 1;
+  cursor: pointer;
+}
+
+.markdone-task-text:hover {
+  text-decoration: underline;
+}
+
+.markdone-task-due {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* --- Command modals (Convert v1 syntax, Run lint) --- */
+
+.markdone-diff,
+.markdone-lint-results {
+  max-height: 50vh;
+  overflow: auto;
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-s);
+  padding: 0.75em;
+  font-family: var(--font-monospace);
+  font-size: 0.85em;
+  white-space: pre-wrap;
+}
+
+.markdone-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin-top: 1em;
+}

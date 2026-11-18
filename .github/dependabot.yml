@@ -1,0 +1,29 @@
+version: 2
+updates:
+  # Keeps the SHA pins (and their "# vX.Y.Z" comments) in workflows and in the
+  # composite action current.
+  - package-ecosystem: github-actions
+    directories:
+      - "/"
+      - "/.github/actions/npm-setup"
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      npm:
+        update-types: [minor, patch]
+
+  - package-ecosystem: cargo
+    directory: "/packages/app/src-tauri"
+    schedule:
+      interval: weekly
+    groups:
+      cargo:
+        update-types: [minor, patch]

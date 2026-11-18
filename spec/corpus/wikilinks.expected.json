@@ -1,0 +1,122 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "",
+      "recognized": {},
+      "unknown": {},
+      "present": false
+    },
+    "preamble": [],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Research",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Read [[Deep Work]] before the retro",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": [],
+              "effort": {
+                "amount": 2,
+                "unit": "hrs"
+              }
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Compare against ![[old-analytics-export.png]]",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "label",
+                  "name": "research"
+                }
+              ],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-3",
+              "text": "Fix the `$PATH` handling described in [[Deploy Notes#Environment]]",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": [],
+              "value": 5,
+              "complexity": 3
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-4",
+              "text": "Note that `*emphasis*` inside code is not an effort token",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "# Inbox\n\n# Research\n\n- [ ] Read [[Deep Work]] before the retro ~2hrs\n- [ ] Compare against ![[old-analytics-export.png]] #research\n- [ ] Fix the `$PATH` handling described in [[Deploy Notes#Environment]] $5 %3\n- [ ] Note that `*emphasis*` inside code is not an effort token\n"
+}

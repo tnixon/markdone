@@ -1,0 +1,85 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "",
+      "recognized": {},
+      "unknown": {},
+      "present": false
+    },
+    "preamble": [],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Budgeting",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Negotiate the $5k invoice down",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": [],
+              "value": 3,
+              "complexity": 2
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Renew the $12/month subscription",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "online"
+              ],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "# Inbox\n\n# Budgeting\n\n- [ ] Negotiate the \\$5k invoice down $3 %2\n- [ ] Renew the \\$12/month subscription @online\n"
+}

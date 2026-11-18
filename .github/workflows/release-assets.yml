@@ -1,0 +1,109 @@
+name: Release assets
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to attach assets to (e.g. v0.1.2)
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: release-assets-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - name: Validate tag
+        run: |
+          if ! [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Tag '$TAG' is not of the form vX.Y.Z"
+            exit 1
+          fi
+
+      - name: Check the release exists and is published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! is_draft=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft); then
+            echo "::error::No release found for tag '$TAG'"
+            exit 1
+          fi
+          if [ "$is_draft" != "false" ]; then
+            echo "::error::Release '$TAG' is a draft; assets would not be publicly downloadable"
+            exit 1
+          fi
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+
+      - name: Check toolkit version matches tag
+        run: |
+          version=$(node -p "require('./packages/toolkit/package.json').version")
+          if [ "$version" != "${TAG#v}" ]; then
+            echo "::error::packages/toolkit version $version does not match tag $TAG"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build:toolkit
+
+      - name: Pack toolkit
+        run: |
+          mkdir dist-release
+          npm pack -w @markdone/toolkit --pack-destination dist-release
+
+      - name: Verify tarball
+        working-directory: dist-release
+        run: |
+          expected="markdone-toolkit-${VERSION}.tgz"
+          if [ "$(ls)" != "$expected" ]; then
+            echo "::error::Expected exactly $expected, found: $(ls)"
+            exit 1
+          fi
+          expected_files=$(printf '%s\n' \
+            package/README.md \
+            package/dist/markdone-mcp.cjs \
+            package/dist/markdone.cjs \
+            package/package.json)
+          actual_files=$(tar -tzf "$expected" | LC_ALL=C sort)
+          if [ "$actual_files" != "$expected_files" ]; then
+            echo "::error::Unexpected tarball contents:"
+            echo "$actual_files"
+            exit 1
+          fi
+
+      - name: Write SHA256SUMS
+        working-directory: dist-release
+        run: |
+          sha256sum -- *.tgz > SHA256SUMS
+          {
+            echo '### SHA256SUMS'
+            echo '```'
+            cat SHA256SUMS
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$TAG" dist-release/*.tgz dist-release/SHA256SUMS --clobber --repo "$GITHUB_REPOSITORY"

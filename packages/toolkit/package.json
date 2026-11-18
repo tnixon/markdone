@@ -1,0 +1,42 @@
+{
+  "name": "@markdone/toolkit",
+  "version": "0.1.3",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "description": "Standalone markdone CLI and MCP server — read and mutate Markdone workspaces from a shell or any MCP-capable agent, no monorepo checkout required.",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "markdone": "./dist/markdone.cjs",
+    "markdone-mcp": "./dist/markdone-mcp.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:smoke": "vitest run --config vitest.smoke.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "@modelcontextprotocol/sdk": "^1.30.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tnixon/markdone.git",
+    "directory": "packages/toolkit"
+  },
+  "homepage": "https://github.com/tnixon/markdone#readme",
+  "bugs": {
+    "url": "https://github.com/tnixon/markdone/issues"
+  }
+}

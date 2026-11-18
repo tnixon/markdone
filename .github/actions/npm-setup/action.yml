@@ -1,0 +1,13 @@
+name: npm setup
+description: Set up Node from .nvmrc with an npm cache, then install workspace deps.
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      with:
+        node-version-file: .nvmrc
+        cache: npm
+
+    - run: npm ci
+      shell: bash

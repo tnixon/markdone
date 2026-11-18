@@ -1,0 +1,160 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "",
+      "recognized": {},
+      "unknown": {},
+      "present": false
+    },
+    "preamble": [],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Home Renovation",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Kitchen remodel",
+              "checkbox": {
+                "state": "done",
+                "marker": "x"
+              },
+              "completed": true,
+              "contexts": [],
+              "tags": [],
+              "subtasks": [
+                {
+                  "id": "task-2",
+                  "text": "Demo old cabinets",
+                  "checkbox": {
+                    "state": "done",
+                    "marker": "x"
+                  },
+                  "completed": true,
+                  "contexts": [],
+                  "tags": [],
+                  "subtasks": [],
+                  "blockId": "demo-cabinets",
+                  "effort": {
+                    "amount": 2,
+                    "unit": "days"
+                  },
+                  "actual": {
+                    "completionDate": "2026-03-03",
+                    "startDate": "2026-03-01",
+                    "duration": {
+                      "amount": 2,
+                      "unit": "days"
+                    }
+                  }
+                },
+                {
+                  "id": "task-3",
+                  "text": "Install new counters",
+                  "checkbox": {
+                    "state": "done",
+                    "marker": "x"
+                  },
+                  "completed": true,
+                  "contexts": [
+                    "home"
+                  ],
+                  "tags": [
+                    {
+                      "type": "nested",
+                      "key": "after",
+                      "value": "demo-cabinets"
+                    }
+                  ],
+                  "subtasks": [],
+                  "effort": {
+                    "amount": 1,
+                    "unit": "wks"
+                  },
+                  "actual": {
+                    "completionDate": "2026-03-25",
+                    "startDate": "2026-03-20",
+                    "duration": {
+                      "amount": 1,
+                      "unit": "wks"
+                    }
+                  }
+                },
+                {
+                  "id": "task-4",
+                  "text": "Final walkthrough with contractor",
+                  "checkbox": {
+                    "state": "open",
+                    "marker": " "
+                  },
+                  "completed": false,
+                  "contexts": [
+                    "home"
+                  ],
+                  "tags": [
+                    {
+                      "type": "nested",
+                      "key": "waiting",
+                      "value": "contractor"
+                    }
+                  ],
+                  "subtasks": []
+                }
+              ],
+              "blockId": "kitchen-remodel",
+              "dueDate": "2026-05-01",
+              "value": 10,
+              "complexity": 9,
+              "effort": {
+                "amount": 3,
+                "unit": "wks"
+              },
+              "actual": {
+                "completionDate": "2026-04-28",
+                "startDate": "2026-03-01",
+                "duration": {
+                  "amount": 8,
+                  "unit": "wks"
+                }
+              }
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "# Inbox\n\n# Home Renovation\n\n- [x] Kitchen remodel !2026-05-01 $10 %9 ~3wks &(2026-03-01, 2026-04-28):8wks ^kitchen-remodel\n  - [x] Demo old cabinets ~2days &(2026-03-01, 2026-03-03):2days ^demo-cabinets\n  - [x] Install new counters @home ~1wks &(2026-03-20, 2026-03-25):1wks #after/demo-cabinets\n  - [ ] Final walkthrough with contractor @home #waiting/contractor\n"
+}

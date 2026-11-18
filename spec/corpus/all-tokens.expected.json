@@ -1,0 +1,218 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "owner: alice\nlayout: checklist",
+      "recognized": {
+        "owner": "alice",
+        "layout": "checklist"
+      },
+      "unknown": {},
+      "present": true
+    },
+    "preamble": [
+      {
+        "type": "opaque",
+        "raw": ""
+      }
+    ],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Sprint 12",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Ship v2 parser",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "computer"
+              ],
+              "tags": [
+                {
+                  "type": "label",
+                  "name": "backend"
+                },
+                {
+                  "type": "nested",
+                  "key": "sprint",
+                  "value": "12"
+                }
+              ],
+              "subtasks": [],
+              "blockId": "ship-v2-parser",
+              "dueDate": "2026-04-20",
+              "deferDate": "2026-04-10",
+              "value": 9,
+              "complexity": 8,
+              "effort": {
+                "amount": 3,
+                "unit": "days"
+              },
+              "actual": {
+                "completionDate": "2026-04-18",
+                "startDate": "2026-04-05",
+                "duration": {
+                  "amount": 9,
+                  "unit": "days"
+                }
+              }
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Wait on design review",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "waiting",
+                  "value": "dana"
+                }
+              ],
+              "subtasks": [],
+              "dueDate": "2026-04-12"
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-3",
+              "text": "Deep work block",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "computer"
+              ],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "energy",
+                  "value": "high"
+                }
+              ],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-4",
+              "text": "Deploy to staging",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "after",
+                  "value": "ship-v2-parser"
+                }
+              ],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-5",
+              "text": "Water the office plants",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "every",
+                  "value": "weekly"
+                }
+              ],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-6",
+              "text": "Retro notes from last sprint",
+              "checkbox": {
+                "state": "done",
+                "marker": "x"
+              },
+              "completed": true,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "owner",
+                  "value": "bob"
+                }
+              ],
+              "subtasks": [],
+              "actual": {
+                "completionDate": "2026-04-01",
+                "duration": {
+                  "amount": 30,
+                  "unit": "min"
+                }
+              }
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "---\nowner: alice\nlayout: checklist\n---\n\n# Inbox\n\n# Sprint 12\n\n- [ ] Ship v2 parser !2026-04-20 >2026-04-10 @computer $9 %8 ~3days &(2026-04-05, 2026-04-18):9days #backend #sprint/12 ^ship-v2-parser\n- [ ] Wait on design review !2026-04-12 #waiting/dana\n- [ ] Deep work block @computer #energy/high\n- [ ] Deploy to staging #after/ship-v2-parser\n- [ ] Water the office plants #every/weekly\n- [x] Retro notes from last sprint &(2026-04-01):30min #owner/bob\n"
+}

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (${{ matrix.pkg }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: [core, app, cli, mcp, skill, obsidian, toolkit]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/npm-setup
+      - run: npm test -w @markdone/${{ matrix.pkg }}
+
+  typecheck:
+    name: typecheck (${{ matrix.pkg }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: [core, app, cli, mcp, skill, obsidian, toolkit]
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/npm-setup
+      - run: npm run typecheck -w @markdone/${{ matrix.pkg }}
+
+  build:
+    name: build (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: app
+            script: build
+          - name: app-embed
+            script: build:embed
+          - name: cli
+            script: build:cli
+          - name: mcp
+            script: build:mcp
+          - name: skill
+            script: build:skill
+          - name: obsidian
+            script: build:obsidian
+          - name: toolkit
+            script: build:toolkit
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/npm-setup
+      - run: npm run ${{ matrix.script }}

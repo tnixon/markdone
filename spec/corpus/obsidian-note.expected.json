@@ -1,0 +1,122 @@
+{
+  "project": {
+    "layout": "kanban",
+    "name": "Kitchen Renovation",
+    "frontmatter": {
+      "raw": "markdone: 2\ntitle: Kitchen Renovation\nlayout: kanban\ncolumns: [Next, Later, Done]\nowner: alice",
+      "recognized": {
+        "markdone": 2,
+        "title": "Kitchen Renovation",
+        "layout": "kanban",
+        "columns": [
+          "Next",
+          "Later",
+          "Done"
+        ],
+        "owner": "alice"
+      },
+      "unknown": {},
+      "present": true
+    },
+    "preamble": [
+      {
+        "type": "opaque",
+        "raw": "\nTracking the kitchen remodel end to end. See the contractor's quote at\n[[Contractor Quote - April]].\n"
+      }
+    ],
+    "sections": [
+      {
+        "kind": "opaque",
+        "raw": "## Notes\n\n> [!warning] Permit deadline\n> The city permit expires 2026-06-01. Do not schedule demo after that\n> without a renewal.\n\nCountertop options discussed with [[Bob]]:\n\n```\nquartz:  $4200, 3wk lead time\ngranite: $3800, 5wk lead time\n```\n"
+      },
+      {
+        "kind": "column",
+        "name": "Next",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Confirm countertop material with Bob",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "home"
+              ],
+              "tags": [],
+              "subtasks": [],
+              "dueDate": "2026-04-20",
+              "value": 8,
+              "complexity": 3
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Schedule demo crew",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "home"
+              ],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "waiting",
+                  "value": "contractor"
+                }
+              ],
+              "subtasks": [],
+              "effort": {
+                "amount": 1,
+                "unit": "days"
+              }
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "kind": "column",
+        "name": "Later",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "kind": "column",
+        "name": "Done",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ],
+    "columnOrder": [
+      "Next",
+      "Later",
+      "Done"
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "---\nmarkdone: 2\ntitle: Kitchen Renovation\nlayout: kanban\ncolumns: [Next, Later, Done]\nowner: alice\n---\n\nTracking the kitchen remodel end to end. See the contractor's quote at\n[[Contractor Quote - April]].\n\n## Notes\n\n> [!warning] Permit deadline\n> The city permit expires 2026-06-01. Do not schedule demo after that\n> without a renewal.\n\nCountertop options discussed with [[Bob]]:\n\n```\nquartz:  $4200, 3wk lead time\ngranite: $3800, 5wk lead time\n```\n\n## Next\n\n- [ ] Confirm countertop material with Bob !2026-04-20 @home $8 %3\n- [ ] Schedule demo crew @home ~1days #waiting/contractor\n\n## Later\n\n## Done\n"
+}

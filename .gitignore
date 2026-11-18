@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# IntelliJ / PyCharm IDE
+.idea
+
+# dependencies (npm workspaces hoists to root, but ignore per-package too)
+node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production (Vite outputs — packages/app/dist, packages/app/dist-embed)
+dist
+dist-embed
+
+# Rust build artifacts (src-tauri/target)
+target
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Obsidian plugin build output — manifest.json/versions.json/styles.css are
+# committed, main.js is rebuilt via `npm run build:obsidian`
+packages/obsidian/main.js
+
+# Skill build's throwaway bundle; removed in a `finally`, ignored in case a
+# crashed build leaves it behind
+packages/skill/.generate-operations-reference.tmp.cjs
+
+# Per-developer Claude Code overrides (defaultMode, sandbox, personal
+# allow-lists). Previously only ignored by a global ~/.config/git/ignore
+# entry, so it wasn't guaranteed on every machine/collaborator — tracking
+# it here means it can't be committed by accident and re-break CI, which
+# loads .claude/settings.json but must never load personal/host-specific
+# settings like defaultMode: "plan" or a host's sandbox config.
+.claude/settings.local.json
+
+# Per-developer direnv config (exports the developer's own gh token)
+.envrc
+
+# ignore markdone deploy packages
+markdone-toolkit-*.tgz
+
+# stop tracking tsbuildinfo build artifacts
+*.tsbuildinfo

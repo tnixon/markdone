@@ -1,0 +1,62 @@
+name: Tauri
+
+on:
+  pull_request:
+    paths:
+      - 'packages/app/**'
+      - 'packages/core/**'
+      - 'package-lock.json'
+      - '.nvmrc'
+      - '.github/workflows/tauri.yml'
+      - '.github/actions/npm-setup/**'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: tauri-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build (debug, no bundle)
+    runs-on: ubuntu-latest
+    env:
+      # A pass/fail CI check gets no benefit from the release profile's
+      # lto=true/codegen-units=1 (packages/app/src-tauri/Cargo.toml), which
+      # is tuned for shipped-binary size, not build speed. The dev profile
+      # still links and produces a runnable binary — see --debug below.
+      CARGO_PROFILE_DEV_DEBUG: 0 # skip debuginfo: smaller cache, faster link
+      CARGO_INCREMENTAL: 0 # no benefit in CI; only bloats the cache
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: ./.github/actions/npm-setup
+
+      - name: Install Linux WebView deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libxdo-dev \
+            libssl-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+      - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: packages/app/src-tauri
+
+      - name: Compile Tauri app (debug, no bundle)
+        working-directory: packages/app
+        run: npm exec --no -- tauri build --debug --no-bundle -- --locked

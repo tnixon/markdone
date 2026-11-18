@@ -1,0 +1,150 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "",
+      "recognized": {},
+      "unknown": {},
+      "present": false
+    },
+    "preamble": [],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Edge Cases",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Reschedule the kickoff !04-20-2026",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "computer"
+              ],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Something that takes ~3 to finish",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-3",
+              "text": "Already did this &(2026-04-01",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-4",
+              "text": "Reference ticket #2026 in the postmortem",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-5",
+              "text": "Vacation planning ~2weeks",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "home"
+              ],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-6",
+              "text": "Triple-dated nonsense &(2026-01-01, 2026-02-01, 2026-03-01)",
+              "checkbox": {
+                "state": "done",
+                "marker": "x"
+              },
+              "completed": true,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [
+    "Invalid due date: !04-20-2026 — treating as description text",
+    "Invalid effort token: ~3 — treating as description text",
+    "Invalid effort token: ~2weeks — treating as description text",
+    "Invalid actual token: &(2026-01-01, 2026-02-01, 2026-03-01) — treating as description text"
+  ],
+  "expectedSerialized": "# Inbox\n\n# Edge Cases\n\n- [ ] Reschedule the kickoff \\!04-20-2026 @computer\n- [ ] Something that takes \\~3 to finish\n- [ ] Already did this &(2026-04-01\n- [ ] Reference ticket \\#2026 in the postmortem\n- [ ] Vacation planning \\~2weeks @home\n- [x] Triple-dated nonsense \\&(2026-01-01, 2026-02-01, 2026-03-01)\n"
+}

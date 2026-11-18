@@ -1,0 +1,323 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "owner: alice",
+      "recognized": {
+        "owner": "alice"
+      },
+      "unknown": {},
+      "present": true
+    },
+    "preamble": [
+      {
+        "type": "opaque",
+        "raw": ""
+      }
+    ],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-3",
+              "text": "Unsorted thought from the shower",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Errands",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Buy groceries",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "errands"
+              ],
+              "tags": [],
+              "subtasks": [],
+              "dueDate": "2026-04-01",
+              "value": 3,
+              "complexity": 1
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Reply to Jan's email",
+              "checkbox": {
+                "state": "done",
+                "marker": "x"
+              },
+              "completed": true,
+              "contexts": [
+                "computer"
+              ],
+              "tags": [],
+              "subtasks": [],
+              "actual": {
+                "completionDate": "2026-03-30"
+              }
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "kanban",
+        "name": "Website Redesign",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "preamble": [
+          {
+            "type": "opaque",
+            "raw": "\nProject to overhaul the marketing site.\n"
+          }
+        ],
+        "sections": [
+          {
+            "kind": "column",
+            "name": "Backlog",
+            "blocks": [
+              {
+                "type": "opaque",
+                "raw": ""
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-4",
+                  "text": "Audit current analytics",
+                  "checkbox": {
+                    "state": "open",
+                    "marker": " "
+                  },
+                  "completed": false,
+                  "contexts": [],
+                  "tags": [],
+                  "subtasks": [],
+                  "value": 8,
+                  "complexity": 3
+                }
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-5",
+                  "text": "Competitive analysis",
+                  "checkbox": {
+                    "state": "open",
+                    "marker": " "
+                  },
+                  "completed": false,
+                  "contexts": [],
+                  "tags": [
+                    {
+                      "type": "label",
+                      "name": "research"
+                    }
+                  ],
+                  "subtasks": [],
+                  "value": 6,
+                  "complexity": 5,
+                  "effort": {
+                    "amount": 4,
+                    "unit": "hrs"
+                  }
+                }
+              },
+              {
+                "type": "opaque",
+                "raw": ""
+              }
+            ]
+          },
+          {
+            "kind": "column",
+            "name": "In Progress",
+            "blocks": [
+              {
+                "type": "opaque",
+                "raw": ""
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-6",
+                  "text": "Wireframe new landing page",
+                  "checkbox": {
+                    "state": "open",
+                    "marker": " "
+                  },
+                  "completed": false,
+                  "contexts": [
+                    "computer"
+                  ],
+                  "tags": [],
+                  "subtasks": [
+                    {
+                      "id": "task-7",
+                      "text": "Desktop layout",
+                      "checkbox": {
+                        "state": "open",
+                        "marker": " "
+                      },
+                      "completed": false,
+                      "contexts": [],
+                      "tags": [],
+                      "subtasks": []
+                    },
+                    {
+                      "id": "task-8",
+                      "text": "Mobile layout",
+                      "checkbox": {
+                        "state": "open",
+                        "marker": " "
+                      },
+                      "completed": false,
+                      "contexts": [],
+                      "tags": [],
+                      "subtasks": []
+                    }
+                  ],
+                  "dueDate": "2026-04-05",
+                  "value": 9,
+                  "complexity": 7
+                }
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-9",
+                  "text": "Draft copy for hero section",
+                  "checkbox": {
+                    "state": "open",
+                    "marker": " "
+                  },
+                  "completed": false,
+                  "contexts": [
+                    "computer"
+                  ],
+                  "tags": [],
+                  "subtasks": [],
+                  "value": 5,
+                  "complexity": 2,
+                  "effort": {
+                    "amount": 2,
+                    "unit": "hrs"
+                  }
+                }
+              },
+              {
+                "type": "opaque",
+                "raw": ""
+              }
+            ]
+          },
+          {
+            "kind": "column",
+            "name": "Done",
+            "blocks": [
+              {
+                "type": "opaque",
+                "raw": ""
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-10",
+                  "text": "Choose color palette",
+                  "checkbox": {
+                    "state": "done",
+                    "marker": "x"
+                  },
+                  "completed": true,
+                  "contexts": [],
+                  "tags": [
+                    {
+                      "type": "label",
+                      "name": "design"
+                    }
+                  ],
+                  "subtasks": []
+                }
+              },
+              {
+                "type": "task",
+                "task": {
+                  "id": "task-11",
+                  "text": "Select typography",
+                  "checkbox": {
+                    "state": "done",
+                    "marker": "x"
+                  },
+                  "completed": true,
+                  "contexts": [],
+                  "tags": [],
+                  "subtasks": []
+                }
+              },
+              {
+                "type": "opaque",
+                "raw": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "---\nowner: alice\n---\n\n# Inbox\n\n- [ ] Unsorted thought from the shower\n\n# Errands\n\n- [ ] Buy groceries !2026-04-01 @errands $3 %1\n- [x] Reply to Jan's email @computer &(2026-03-30)\n\n# Website Redesign\n\nProject to overhaul the marketing site.\n\n## Backlog\n\n- [ ] Audit current analytics $8 %3\n- [ ] Competitive analysis $6 %5 ~4hrs #research\n\n## In Progress\n\n- [ ] Wireframe new landing page !2026-04-05 @computer $9 %7\n  - [ ] Desktop layout\n  - [ ] Mobile layout\n- [ ] Draft copy for hero section @computer $5 %2 ~2hrs\n\n## Done\n\n- [x] Choose color palette #design\n- [x] Select typography\n"
+}

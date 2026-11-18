@@ -1,0 +1,103 @@
+{
+  "project": {
+    "layout": "kanban",
+    "name": "Website Redesign",
+    "frontmatter": {
+      "raw": "markdone: 2\ntitle:   Website Redesign\n# owned by the platform team, do not reassign without asking Priya\nstatus: active\nlayout: kanban\ncolumns:\n  - Next\n  - Later\n  - Done\ntags: [project, q2]\naliases: [\"Site Refresh\"]\ncssclasses:\n  - wide-page",
+      "recognized": {
+        "markdone": 2,
+        "title": "Website Redesign",
+        "status": "active",
+        "layout": "kanban",
+        "columns": [
+          "Next",
+          "Later",
+          "Done"
+        ]
+      },
+      "unknown": {
+        "tags": [
+          "project",
+          "q2"
+        ],
+        "aliases": [
+          "Site Refresh"
+        ],
+        "cssclasses": [
+          "wide-page"
+        ]
+      },
+      "present": true
+    },
+    "preamble": [
+      {
+        "type": "opaque",
+        "raw": "\nRedesign of the public marketing site for the Q2 launch.\n"
+      }
+    ],
+    "sections": [
+      {
+        "kind": "column",
+        "name": "Next",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Wireframe hero section",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "computer"
+              ],
+              "tags": [],
+              "subtasks": [],
+              "effort": {
+                "amount": 2,
+                "unit": "hrs"
+              }
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "kind": "column",
+        "name": "Later",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "kind": "column",
+        "name": "Done",
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ],
+    "columnOrder": [
+      "Next",
+      "Later",
+      "Done"
+    ]
+  },
+  "warnings": [],
+  "expectedSerialized": "---\nmarkdone: 2\ntitle:   Website Redesign\n# owned by the platform team, do not reassign without asking Priya\nstatus: active\nlayout: kanban\ncolumns:\n  - Next\n  - Later\n  - Done\ntags: [project, q2]\naliases: [\"Site Refresh\"]\ncssclasses:\n  - wide-page\n---\n\nRedesign of the public marketing site for the Q2 launch.\n\n## Next\n\n- [ ] Wireframe hero section @computer ~2hrs\n\n## Later\n\n## Done\n"
+}

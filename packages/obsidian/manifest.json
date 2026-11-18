@@ -1,0 +1,10 @@
+{
+  "id": "markdone",
+  "name": "Markdone",
+  "version": "0.1.3",
+  "minAppVersion": "1.6.6",
+  "description": "Token chips, a task query view, and workspace commands for Markdone task workspaces (format v2), read and written through @markdone/core — never by hand-editing task lines.",
+  "author": "Tristan Nixon",
+  "authorUrl": "https://github.com/tnixon",
+  "isDesktopOnly": false
+}

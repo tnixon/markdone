@@ -1,0 +1,179 @@
+name: Codex Code Review
+
+# An independent review: Codex, a different model and agent framework from the
+# Claude Code instance that writes the pull requests. It comments and
+# never approves. Never use pull_request_target here: the job runs the PR's code
+# checkout with a model that holds an API key.
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+permissions: {}
+
+env:
+  CODEX_VERSION: "0.167.0"
+
+jobs:
+  review:
+    # Dependabot's runs get no Actions secrets, so a review would only fail.
+    if: |
+      !github.event.pull_request.draft &&
+      github.actor != 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !contains(github.event.pull_request.title, '[skip-review]') &&
+      !contains(github.event.pull_request.title, '[WIP]')
+
+    # Pinned: ubuntu-latest became ubuntu-26.04, where the action's drop-sudo
+    # step fails ("Could not restrict access to /run/dbus/system_bus_socket").
+    # Move back to ubuntu-latest once openai/codex-action supports 26.04.
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      review: ${{ steps.codex.outputs.final-message }}
+
+    steps:
+      - name: Checkout the pull request
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # The prompt and the output schema come from the base branch, so a pull
+      # request cannot rewrite its own reviewer. Only fixed-format values go in
+      # the header; the title and body are untrusted and are left out.
+      - name: Build the prompt and schema from the base branch
+        env:
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PROMPT_FILE: ${{ runner.temp }}/review.md
+          SCHEMA_FILE: ${{ runner.temp }}/review-schema.json
+        run: |
+          {
+            echo "REPO: $REPO"
+            echo "PR NUMBER: $PR_NUMBER"
+            echo "BASE SHA: $BASE_SHA"
+            echo "HEAD SHA: $HEAD_SHA"
+            echo "REVIEWER: Codex"
+            echo
+            git show "$BASE_SHA:.github/prompts/code-review.md"
+            git show "$BASE_SHA:.github/prompts/code-review.codex.md"
+          } > "$PROMPT_FILE"
+          git show "$BASE_SHA:.github/prompts/code-review.schema.json" > "$SCHEMA_FILE"
+
+      # Last step in the job: nothing runs after the model in a job that holds
+      # the key. It is read-only and cannot post; the comment job does that.
+      - name: Run Codex review
+        id: codex
+        # openai/codex-action v1.13
+        uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: ${{ runner.temp }}/review.md
+          output-schema-file: ${{ runner.temp }}/review-schema.json
+          codex-version: ${{ env.CODEX_VERSION }}
+          permission-profile: ":read-only"
+          safety-strategy: drop-sudo
+
+  comment:
+    needs: review
+    if: needs.review.outputs.review != ''
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Post the review as a comment
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        env:
+          REVIEW: ${{ needs.review.outputs.review }}
+        with:
+          script: |
+            // The model's text is untrusted. Nothing it writes may mention a
+            // person, load an image from a URL it chose, or inject raw HTML.
+            const ZWSP = '\u200B';
+            const clean = (s) => String(s ?? '')
+              .replace(/@/g, '@' + ZWSP)
+              .replace(/!\[/g, '!' + ZWSP + '[')
+              .replace(/</g, '&lt;');
+            const oneLine = (s) => clean(s).replace(/\s+/g, ' ').trim();
+            const clamp = (v, lo, hi, d) => Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d;
+            const fence = (s) => {
+              const runs = (s.match(/`+/g) || []).map((m) => m.length);
+              const f = '`'.repeat(Math.max(3, ...runs.map((n) => n + 1)));
+              return f + '\n' + s + '\n' + f;
+            };
+
+            const raw = process.env.REVIEW.trim()
+              .replace(/^```(?:json)?\s*/, '')
+              .replace(/\s*```$/, '');
+            let data = null;
+            try { data = JSON.parse(raw); } catch (e) { data = null; }
+            const valid = data && typeof data === 'object'
+              && Array.isArray(data.findings) && Array.isArray(data.areas_clean);
+
+            let body;
+            if (!valid) {
+              body = '### Codex review\n\nThe review did not come back in the expected format, so here is its raw output.\n\n'
+                + fence(raw.replace(/@/g, '@' + ZWSP));
+            } else {
+              const findings = data.findings
+                .filter((f) => f && typeof f === 'object')
+                .map((f) => {
+                  const start = Number.isInteger(f.line_start) ? f.line_start : null;
+                  const end = Number.isInteger(f.line_end) ? f.line_end : null;
+                  const path = String(f.path ?? '').replace(/[`\s]+/g, ' ').trim();
+                  const lines = start === null ? '' : ':' + start + (end !== null && end > start ? '-' + end : '');
+                  return {
+                    title: oneLine(f.title).slice(0, 80),
+                    body: clean(f.body).trim().slice(0, 2000),
+                    priority: Math.round(clamp(f.priority, 0, 3, 3)),
+                    confidence: clamp(f.confidence, 0, 1, 0),
+                    where: (path + lines).trim(),
+                    rule: f.rule ? oneLine(f.rule).slice(0, 200) : '',
+                  };
+                })
+                .sort((a, b) => a.priority - b.priority || b.confidence - a.confidence);
+
+              const show = (f) => [
+                `**[P${f.priority}] ${f.title}**` + (f.where ? ` \`${f.where}\`` : '')
+                  + ` <sub>confidence ${f.confidence.toFixed(2)}</sub>`,
+                '',
+                f.body,
+                f.rule ? `\n<sub>Rule: ${f.rule}</sub>` : '',
+              ].join('\n');
+
+              // A P0 is always shown; a doubtful lesser finding is collapsed.
+              const doubtful = (f) => f.confidence < 0.5 && f.priority > 0;
+              const main = findings.filter((f) => !doubtful(f));
+              const low = findings.filter(doubtful);
+
+              const verdict = ['patch is correct', 'patch is incorrect'].includes(data.overall_correctness)
+                ? data.overall_correctness : 'verdict not given';
+              const parts = [
+                '### Codex review',
+                `**Verdict:** ${verdict}. ${oneLine(data.overall_explanation)}`,
+                main.length ? main.map(show).join('\n\n---\n\n') : '**No findings.**',
+              ];
+              if (low.length) {
+                parts.push(`<details><summary>Lower-confidence findings (${low.length})</summary>\n\n`
+                  + low.map(show).join('\n\n---\n\n') + '\n\n</details>');
+              }
+              const areas = data.areas_clean.map((a) => oneLine(a)).filter(Boolean);
+              if (areas.length) parts.push(`**Checked, nothing found:** ${areas.join('; ')}.`);
+              body = parts.join('\n\n');
+            }
+
+            const head = context.payload.pull_request.head.sha.slice(0, 7);
+            body += `\n\n<sub>Codex ${process.env.CODEX_VERSION} on ${head}. Advisory only: it does not approve, request changes, or gate the merge.</sub>`;
+            if (body.length > 60000) body = body.slice(0, 60000) + '\n\n(truncated)';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });

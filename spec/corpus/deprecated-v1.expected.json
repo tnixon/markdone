@@ -1,0 +1,106 @@
+{
+  "file": {
+    "frontmatter": {
+      "raw": "",
+      "recognized": {},
+      "unknown": {},
+      "present": false
+    },
+    "preamble": [],
+    "projects": [
+      {
+        "layout": "checklist",
+        "name": "Inbox",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      },
+      {
+        "layout": "checklist",
+        "name": "Legacy Import",
+        "frontmatter": {
+          "raw": "",
+          "recognized": {},
+          "unknown": {},
+          "present": false
+        },
+        "blocks": [
+          {
+            "type": "opaque",
+            "raw": ""
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-1",
+              "text": "Finalize roadmap",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [
+                "meetings"
+              ],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "priority",
+                  "value": "critical"
+                }
+              ],
+              "subtasks": [],
+              "dueDate": "2026-04-10",
+              "value": 5,
+              "complexity": 4,
+              "effort": {
+                "amount": 3,
+                "unit": "hrs"
+              }
+            }
+          },
+          {
+            "type": "task",
+            "task": {
+              "id": "task-2",
+              "text": "Logo concepts from designer",
+              "checkbox": {
+                "state": "open",
+                "marker": " "
+              },
+              "completed": false,
+              "contexts": [],
+              "tags": [
+                {
+                  "type": "nested",
+                  "key": "waiting",
+                  "value": "unknown"
+                }
+              ],
+              "subtasks": []
+            }
+          },
+          {
+            "type": "opaque",
+            "raw": ""
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [
+    "Deprecated effort token *3hrs — rewritten to ~3hrs on save",
+    "Deprecated tag syntax #priority(critical) — rewritten to #priority/critical on save",
+    "Deprecated @waiting context — rewritten to #waiting/unknown on save"
+  ],
+  "expectedSerialized": "# Inbox\n\n# Legacy Import\n\n- [ ] Finalize roadmap !2026-04-10 @meetings $5 %4 ~3hrs #priority/critical\n- [ ] Logo concepts from designer #waiting/unknown\n"
+}

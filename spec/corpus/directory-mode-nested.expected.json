@@ -1,0 +1,219 @@
+{
+  "defaultsFrontmatter": {
+    "raw": "owner: alice\non-complete: Done\nprojects: [home-network/todo, reading-list]",
+    "recognized": {
+      "owner": "alice",
+      "on-complete": "Done",
+      "projects": [
+        "home-network/todo",
+        "reading-list"
+      ]
+    },
+    "unknown": {},
+    "present": true
+  },
+  "order": [
+    "inbox",
+    "home-network/todo",
+    "reading-list"
+  ],
+  "projects": {
+    "inbox": {
+      "layout": "checklist",
+      "name": "Inbox",
+      "frontmatter": {
+        "raw": "markdone: 2",
+        "recognized": {
+          "markdone": 2,
+          "owner": "alice",
+          "on-complete": "Done"
+        },
+        "unknown": {},
+        "present": true
+      },
+      "blocks": [
+        {
+          "type": "opaque",
+          "raw": ""
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-1",
+            "text": "Capture something",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [],
+            "subtasks": []
+          }
+        },
+        {
+          "type": "opaque",
+          "raw": ""
+        }
+      ],
+      "sourcePath": "inbox.md"
+    },
+    "home-network/todo": {
+      "layout": "kanban",
+      "name": "home-network",
+      "frontmatter": {
+        "raw": "markdone: 2\nlayout: kanban\ncolumns: [Next, Done, Archive]",
+        "recognized": {
+          "markdone": 2,
+          "layout": "kanban",
+          "columns": [
+            "Next",
+            "Done",
+            "Archive"
+          ],
+          "owner": "alice",
+          "on-complete": "Done"
+        },
+        "unknown": {},
+        "present": true
+      },
+      "preamble": [
+        {
+          "type": "opaque",
+          "raw": ""
+        }
+      ],
+      "sections": [
+        {
+          "kind": "column",
+          "name": "Next",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            },
+            {
+              "type": "task",
+              "task": {
+                "id": "task-2",
+                "text": "Replace the router",
+                "checkbox": {
+                  "state": "open",
+                  "marker": " "
+                },
+                "completed": false,
+                "contexts": [],
+                "tags": [],
+                "subtasks": [],
+                "blockId": "rtr1",
+                "dueDate": "2026-06-01"
+              }
+            },
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "column",
+          "name": "Done",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "column",
+          "name": "Archive",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        }
+      ],
+      "columnOrder": [
+        "Next",
+        "Done",
+        "Archive"
+      ],
+      "sourcePath": "home-network/todo.md"
+    },
+    "reading-list": {
+      "layout": "checklist",
+      "name": "reading-list",
+      "frontmatter": {
+        "raw": "markdone: 2",
+        "recognized": {
+          "markdone": 2,
+          "owner": "alice",
+          "on-complete": "Done"
+        },
+        "unknown": {},
+        "present": true
+      },
+      "blocks": [
+        {
+          "type": "opaque",
+          "raw": ""
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-3",
+            "text": "Deep Work",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [],
+            "subtasks": [],
+            "effort": {
+              "amount": 6,
+              "unit": "hrs"
+            }
+          }
+        },
+        {
+          "type": "opaque",
+          "raw": ""
+        }
+      ],
+      "sourcePath": "reading-list.md"
+    }
+  },
+  "warnings": [
+    {
+      "path": "future.md",
+      "message": "markdone marker names unsupported spec version 3 — file skipped, not loaded as a project",
+      "code": "marker"
+    }
+  ],
+  "skipped": [
+    {
+      "path": "future.md",
+      "status": "unsupported",
+      "marker": 3
+    }
+  ],
+  "unmarkedNotes": [
+    {
+      "path": "home-network/network-plan.md",
+      "looksLikeTaskFile": false
+    },
+    {
+      "path": "notes.md",
+      "looksLikeTaskFile": false
+    },
+    {
+      "path": "sub/inbox.md",
+      "looksLikeTaskFile": false
+    }
+  ]
+}

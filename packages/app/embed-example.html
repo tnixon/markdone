@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdone — Embedded Example</title>
+
+    <!--
+      Step 1: Load the Markdone CSS bundle.
+      NOTE: dist-embed/ is a build output directory — it is NOT checked into
+      the repository. Run `npm run build:embed` first to generate these files.
+    -->
+    <link rel="stylesheet" href="dist-embed/style.css" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+
+      /* Give the widget a fixed height so it scrolls internally */
+      #markdone-container {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Step 2: Add a container element with the data-markdone attribute.
+
+      Supported data attributes:
+        data-storage  — storage backend: "localstorage" (default)
+        data-theme    — colour scheme:   "light" | "dark" | "auto" (default)
+    -->
+    <div
+      id="markdone-container"
+      data-markdone
+      data-storage="localstorage"
+      data-theme="auto"
+    ></div>
+
+    <!--
+      Step 3: Load the Markdone JS bundle AFTER the container element.
+      The bundle auto-mounts into any [data-markdone] element it finds.
+    -->
+    <script src="dist-embed/markdone.iife.js"></script>
+
+    <!--
+      Optional: JS API — mount manually and keep a reference for later cleanup.
+
+      <script>
+        // Override auto-mount by calling mount() directly:
+        const handle = Markdone.mount(
+          document.getElementById('markdone-container'),
+          { storage: 'localstorage', theme: 'dark' }
+        );
+
+        // To unmount later:
+        // handle.unmount();
+      </script>
+    -->
+  </body>
+</html>

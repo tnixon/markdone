@@ -1,0 +1,347 @@
+{
+  "defaultsFrontmatter": {
+    "raw": "owner: alice\nlayout: checklist\ncolumns: [Next, Later, Waiting, Done]\npriority: 1\nprojects: [website-redesign, reading-list]",
+    "recognized": {
+      "owner": "alice",
+      "layout": "checklist",
+      "columns": [
+        "Next",
+        "Later",
+        "Waiting",
+        "Done"
+      ],
+      "priority": 1,
+      "projects": [
+        "website-redesign",
+        "reading-list"
+      ]
+    },
+    "unknown": {},
+    "present": true
+  },
+  "order": [
+    "inbox",
+    "website-redesign",
+    "reading-list"
+  ],
+  "projects": {
+    "inbox": {
+      "layout": "checklist",
+      "name": "Inbox",
+      "frontmatter": {
+        "raw": "markdone: 2\ntitle: Inbox",
+        "recognized": {
+          "markdone": 2,
+          "title": "Inbox",
+          "layout": "checklist",
+          "columns": [
+            "Next",
+            "Later",
+            "Waiting",
+            "Done"
+          ],
+          "owner": "alice",
+          "priority": 1
+        },
+        "unknown": {},
+        "present": true
+      },
+      "blocks": [
+        {
+          "type": "opaque",
+          "raw": ""
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-1",
+            "text": "Unsorted thought from the shower",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [],
+            "subtasks": []
+          }
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-2",
+            "text": "Ask Bob about the wifi password",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [],
+            "subtasks": []
+          }
+        },
+        {
+          "type": "opaque",
+          "raw": ""
+        }
+      ],
+      "sourcePath": "inbox.md"
+    },
+    "website-redesign": {
+      "layout": "kanban",
+      "name": "Website Redesign",
+      "frontmatter": {
+        "raw": "markdone: 2\ntitle: Website Redesign\nlayout: kanban\ncolumns: [Next, Later, Waiting, Done]\npriority: 3\nstatus: active\nreview: 2026-04-24",
+        "recognized": {
+          "markdone": 2,
+          "title": "Website Redesign",
+          "layout": "kanban",
+          "columns": [
+            "Next",
+            "Later",
+            "Waiting",
+            "Done"
+          ],
+          "priority": 3,
+          "status": "active",
+          "review": "2026-04-24",
+          "owner": "alice"
+        },
+        "unknown": {},
+        "present": true
+      },
+      "preamble": [
+        {
+          "type": "opaque",
+          "raw": "\nOverhaul of the public marketing site ahead of the Q2 launch.\n"
+        }
+      ],
+      "sections": [
+        {
+          "kind": "column",
+          "name": "Later",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            },
+            {
+              "type": "task",
+              "task": {
+                "id": "task-5",
+                "text": "Competitive analysis",
+                "checkbox": {
+                  "state": "open",
+                  "marker": " "
+                },
+                "completed": false,
+                "contexts": [],
+                "tags": [
+                  {
+                    "type": "label",
+                    "name": "research"
+                  }
+                ],
+                "subtasks": [],
+                "value": 6,
+                "complexity": 5,
+                "effort": {
+                  "amount": 4,
+                  "unit": "hrs"
+                }
+              }
+            },
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "column",
+          "name": "Next",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            },
+            {
+              "type": "task",
+              "task": {
+                "id": "task-6",
+                "text": "Wireframe landing page",
+                "checkbox": {
+                  "state": "open",
+                  "marker": " "
+                },
+                "completed": false,
+                "contexts": [
+                  "computer"
+                ],
+                "tags": [
+                  {
+                    "type": "nested",
+                    "key": "owner",
+                    "value": "bob"
+                  }
+                ],
+                "subtasks": [],
+                "dueDate": "2026-04-05",
+                "value": 9,
+                "complexity": 7
+              }
+            },
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "column",
+          "name": "Waiting",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "column",
+          "name": "Done",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        },
+        {
+          "kind": "auxiliary",
+          "name": "Notes",
+          "blocks": [
+            {
+              "type": "opaque",
+              "raw": ""
+            },
+            {
+              "type": "task",
+              "task": {
+                "id": "task-7",
+                "text": "Ask Bob about the old analytics export",
+                "checkbox": {
+                  "state": "open",
+                  "marker": " "
+                },
+                "completed": false,
+                "contexts": [],
+                "tags": [
+                  {
+                    "type": "nested",
+                    "key": "waiting",
+                    "value": "bob"
+                  }
+                ],
+                "subtasks": []
+              }
+            },
+            {
+              "type": "opaque",
+              "raw": ""
+            }
+          ]
+        }
+      ],
+      "columnOrder": [
+        "Next",
+        "Later",
+        "Waiting",
+        "Done"
+      ],
+      "sourcePath": "website-redesign.md"
+    },
+    "reading-list": {
+      "layout": "checklist",
+      "name": "Reading List",
+      "frontmatter": {
+        "raw": "markdone: 2\nstatus: someday\narea: Personal Development\nlayout: checklist",
+        "recognized": {
+          "markdone": 2,
+          "status": "someday",
+          "area": "Personal Development",
+          "layout": "checklist",
+          "columns": [
+            "Next",
+            "Later",
+            "Waiting",
+            "Done"
+          ],
+          "owner": "alice",
+          "priority": 1
+        },
+        "unknown": {},
+        "present": true
+      },
+      "blocks": [
+        {
+          "type": "opaque",
+          "raw": "\n# Reading List\n\n## Notes\n\nRecommendations from [[Book Club]].\n\n## Queue\n"
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-3",
+            "text": "Deep Work",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [
+              {
+                "type": "nested",
+                "key": "genre",
+                "value": "productivity"
+              }
+            ],
+            "subtasks": [],
+            "effort": {
+              "amount": 6,
+              "unit": "hrs"
+            }
+          }
+        },
+        {
+          "type": "task",
+          "task": {
+            "id": "task-4",
+            "text": "The Pragmatic Programmer",
+            "checkbox": {
+              "state": "open",
+              "marker": " "
+            },
+            "completed": false,
+            "contexts": [],
+            "tags": [],
+            "subtasks": [],
+            "effort": {
+              "amount": 8,
+              "unit": "hrs"
+            }
+          }
+        },
+        {
+          "type": "opaque",
+          "raw": ""
+        }
+      ],
+      "sourcePath": "reading-list.md"
+    }
+  },
+  "warnings": [],
+  "skipped": [],
+  "unmarkedNotes": []
+}
