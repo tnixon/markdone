@@ -2,6 +2,7 @@ import { completeTask, uncompleteTask, cancelTask, moveTask, updateTask } from '
 import { getColumns, getColumnTasks } from '../../model/accessors';
 import type { AppState, KanbanProject, Task, Tag } from '../../model/types';
 import { nextOccurrence } from '../recurrence';
+import { localToday } from '../utils';
 import { makeKanban, makeAppState, makeTask, WORKSPACE_ID, EMPTY_FRONTMATTER } from './helpers';
 
 // A 3-column board [Todo, Doing, Done] with an optional `on-complete`.
@@ -239,7 +240,7 @@ describe('recurring tasks', () => {
     expect(done.map(t => t.text)).toEqual(['stretch']);
     expect(todo).toHaveLength(1);
     expect(todo[0].dueDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    expect(todo[0].dueDate! > new Date().toISOString().slice(0, 10)).toBe(true);
+    expect(todo[0].dueDate! > localToday()).toBe(true);
   });
 
   test('a non-recurring or already-done task spawns nothing', () => {
