@@ -11,6 +11,11 @@ function displayAndGetButtonSettings(tab: MarkdoneSettingTab): Setting[] {
   return Setting.instances.filter(setting => setting.buttons.length > 0);
 }
 
+function displayAndGetAddRow(tab: MarkdoneSettingTab): Setting {
+  const rows = displayAndGetButtonSettings(tab);
+  return rows[rows.length - 1];
+}
+
 function makeTab(folders: string[], vaultSeed: Record<string, string>) {
   const app = new App(vaultSeed);
   const plugin = {
@@ -63,7 +68,7 @@ describe('MarkdoneSettingTab workspace folders', () => {
     });
     Notice.shown = [];
     try {
-      const addRow = displayAndGetButtonSettings(tab).at(-1)!;
+      const addRow = displayAndGetAddRow(tab);
       addRow.buttons[0].click();
       await flushPromises();
     } finally {
@@ -82,7 +87,7 @@ describe('MarkdoneSettingTab workspace folders', () => {
     });
     Notice.shown = [];
     try {
-      displayAndGetButtonSettings(tab).at(-1)!.buttons[0].click();
+      displayAndGetAddRow(tab).buttons[0].click();
       await flushPromises();
     } finally {
       open.mockRestore();
