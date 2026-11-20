@@ -2,13 +2,6 @@ name: Tauri
 
 on:
   pull_request:
-    paths:
-      - 'packages/app/**'
-      - 'packages/core/**'
-      - 'package-lock.json'
-      - '.nvmrc'
-      - '.github/workflows/tauri.yml'
-      - '.github/actions/npm-setup/**'
   push:
     branches: [main]
   workflow_dispatch:
@@ -21,8 +14,42 @@ permissions:
   contents: read
 
 jobs:
+  # "build (debug, no bundle)" is a required check. A workflow-level `paths:`
+  # filter would leave it unreported (blocking the merge) on PRs that touch none
+  # of these paths, whereas a skipped job counts as passing. So the workflow
+  # always triggers and this job decides whether the build is needed.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      tauri: ${{ steps.filter.outputs.tauri }}
+    steps:
+      - id: filter
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != "pull_request" ]; then
+            echo "tauri=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          tauri=false
+          while IFS= read -r file; do
+            case "$file" in
+              packages/app/* | packages/core/* | package-lock.json | .nvmrc | \
+              .github/workflows/tauri.yml | .github/actions/npm-setup/*)
+                tauri=true
+                break
+                ;;
+            esac
+          done < <(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')
+          echo "tauri=$tauri" >> "$GITHUB_OUTPUT"
+
   build:
     name: build (debug, no bundle)
+    needs: changes
+    if: needs.changes.outputs.tauri == 'true'
     runs-on: ubuntu-latest
     env:
       # A pass/fail CI check gets no benefit from the release profile's
