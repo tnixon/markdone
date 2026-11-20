@@ -82,6 +82,7 @@ jobs:
           fi
           expected_files=$(printf '%s\n' \
             package/README.md \
+            package/dist/LICENSE \
             package/dist/markdone-mcp.cjs \
             package/dist/markdone.cjs \
             package/package.json)
