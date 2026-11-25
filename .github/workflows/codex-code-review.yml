@@ -68,7 +68,7 @@ jobs:
       - name: Run Codex review
         id: codex
         # openai/codex-action v1.13
-        uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675
+        uses: openai/codex-action@306c6a196a99dcc6582530c396a19d2672d5e9ec
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           prompt-file: ${{ runner.temp }}/review.md
